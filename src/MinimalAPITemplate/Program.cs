@@ -1,3 +1,4 @@
+using MinimalAPITemplate;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -8,14 +9,9 @@ try
 {
     Log.Information("Starting web application...");
     var builder = WebApplication.CreateBuilder(args);
-    builder.Services.AddOpenApi();
+    builder.AddServices();
     var app = builder.Build();
-    if (app.Environment.IsDevelopment())
-    {
-        app.MapOpenApi();
-    }
-
-    app.UseHttpsRedirection();
+    app.Configure();
     app.Run();
 }
 catch (Exception ex)
