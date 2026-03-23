@@ -1,3 +1,4 @@
+
 namespace MinimalAPITemplate;
 
 public static class ConfigureServices

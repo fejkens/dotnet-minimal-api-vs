@@ -1,3 +1,4 @@
+global using MinimalAPITemplate.Common;
 using MinimalAPITemplate;
 using Serilog;
 
