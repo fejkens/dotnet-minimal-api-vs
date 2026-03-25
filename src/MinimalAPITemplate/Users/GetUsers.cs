@@ -1,3 +1,6 @@
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http.HttpResults;
+
 namespace MinimalAPITemplate.Users;
 
 public class GetUsers : IEndpoint
@@ -6,13 +9,17 @@ public class GetUsers : IEndpoint
         .MapGet("/{id}", Handle)
         .WithSummary("Get all users");
 
-    public record Request(int Id);
+    public record Request(
+        [property: Range(0, int.MaxValue, ErrorMessage = "Id must be greater than 0.")]
+        int Id
+        );
+    
     public record Response(int Id, string Username);
 
-    private static async Task<Response> Handle([AsParameters] Request request)
+    private static async Task<Results<Ok<Response>, NotFound>> Handle([AsParameters] Request request)
     {
         // EF Core logic
 
-        return new Response(1, "Test username");
+        return TypedResults.Ok(new Response(1, "Test username"));
     }
 }
